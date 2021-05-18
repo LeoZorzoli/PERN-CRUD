@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Table from './components/Table';
+import Main from './components/Main';
 import { useDispatch } from 'react-redux';
 import { getTurns } from './reducers/turnsReducer';
 
@@ -14,8 +14,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Table} />
-        <Route path="/new" />
+        <Route exact path="/" component={Main} />
       </Switch>
     </Router>
   )

@@ -14,6 +14,8 @@ exports.create = (req, res) => {
     const turn = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        sex: req.body.sex,
+        age: req.body.age,
         description: req.body.description
     };
 

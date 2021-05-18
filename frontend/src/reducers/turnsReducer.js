@@ -12,7 +12,7 @@ export const getTurns = () => {
 
 export const createTurn = (turn) => {
     return async dispatch => {
-        const turnToCreate = await turnsService.createTurn()
+        const turnToCreate = await turnsService.createTurn(turn)
         dispatch({
             type: 'CREATE',
             content: turnToCreate
@@ -32,7 +32,7 @@ export const deleteTurn = (id) => {
 
 const turnsReducer = (state = [], action) => {
     switch(action.type){
-        case 'NEW_TURN':
+        case 'CREATE':
             return [...state, action.content]
         case 'GETALL':
             return action.data

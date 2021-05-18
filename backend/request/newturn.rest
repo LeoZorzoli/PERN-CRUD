@@ -4,5 +4,7 @@ Content-Type: application/json
 {
     "firstName": "Lautaro",
     "lastName": "Zorzoli",
+    "age": 25,
+    "sex": "Man",
     "description": "Dentista"
 }
