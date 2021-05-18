@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, MenuItem, Button } from '@material-ui/core';
-import { useField } from '../hooks/index';
 import { createTurn } from '../reducers/turnsReducer';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,28 +18,28 @@ const useStyles = makeStyles((theme) => ({
 
 const NewTurn = () => {
     const dispatch = useDispatch();
-
     const clasess = useStyles();
-    const [sex, setSex] = useState('');
-    const description = useField('text')
-    const firstName = useField('text')
-    const lastName = useField('text')
-    const age = useField('number')
+    const [values, setValues] = useState({
+        sex: '',
+        description: '',
+        firstName: '',
+        lastName: '',
+        age: ''
+    })
 
-    const handleChange = (e) => {
-        e.preventDefault();
-        setSex(e.target.value);
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
     }
 
     const handleNewTurn = (e) => {
         e.preventDefault();
 
         const turn = {
-            description: description.value,
-            firstName: firstName.value,
-            lastName: lastName.value,
-            age: age.value,
-            sex: sex,
+            description: values.description,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            age: values.age,
+            sex: values.sex,
         };
 
         dispatch(createTurn(turn))
@@ -48,14 +47,14 @@ const NewTurn = () => {
 
     return (
         <form className={clasess.root} autoComplete="off">
-            <TextField {...description} label="Description" />
-            <TextField {...firstName} label="First Name" />
-            <TextField {...lastName} label="Last Name" />
+            <TextField onChange={handleChange('description')} value={values.description} label="Description" />
+            <TextField onChange={handleChange('firstName')} value={values.firstName} label="First Name" />
+            <TextField onChange={handleChange('lastName')} value={values.lastName} label="Last Name" />
             <TextField 
                 select 
                 label="Select"
-                value={sex}
-                onChange={handleChange}
+                value={values.sex}
+                onChange={handleChange('sex')}
                 helperText="Please select your sex"
             >
                 <MenuItem key="Male" value="Male">
@@ -65,7 +64,7 @@ const NewTurn = () => {
                     Female
                 </MenuItem>
             </TextField>
-            <TextField {...age} label="Age" />
+            <TextField onChange={handleChange('age')} value={values.age} label="Age" />
             <Button variant="contained" color="primary" onClick={handleNewTurn}>
                 Send
             </Button>
